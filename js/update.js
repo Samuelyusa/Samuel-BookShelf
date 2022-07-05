@@ -1,16 +1,16 @@
-const todos = [];
-const RENDER_EVENT = 'render-todo';
-const SAVED_EVENT = 'saved-todo';
+const books = [];
+const RENDER_EVENT = 'render-book';
+const SAVED_EVENT = 'saved-book';
 const STORAGE_KEY = 'BOOK_APPS';
 const UPDATE_KEY = 'Update_index';
 
-let todoTarget = JSON.parse(localStorage.getItem(UPDATE_KEY));
+let bookTarget = JSON.parse(localStorage.getItem(UPDATE_KEY));
 const serializedData = JSON.parse(localStorage.getItem(STORAGE_KEY));
-const data = serializedData[todoTarget];
+const data = serializedData[bookTarget];
 console.log(data.id);
 console.log(data.judulBuku);
 
-function generateTodoObject(id, judulBuku, penulis, tahun, timestamp, isCompleted) {
+function generateBookObject(id, judulBuku, penulis, tahun, timestamp, isCompleted) {
   return {
     id,
     judulBuku,
@@ -21,18 +21,18 @@ function generateTodoObject(id, judulBuku, penulis, tahun, timestamp, isComplete
   };
 }
 
-function findTodo(todoId) {
-  for (const todoItem of todos) {
-    if (todoItem.id === todoId) {
-      return todoItem;
+function findBook(bookId) {
+  for (const bookItem of books) {
+    if (bookItem.id === bookId) {
+      return bookItem;
     }
   }
   return null;
 }
 
-function findTodoIndex(todoId) {
-  for (const index in todos) {
-    if (todos[index].id === todoId) {
+function findBookIndex(bookId) {
+  for (const index in books) {
+    if (books[index].id === bookId) {
       return index;
     }
   }
@@ -49,7 +49,7 @@ function isStorageExist() {
 
 function saveData() {
   if (isStorageExist()) {
-    const parsed = JSON.stringify(todos);
+    const parsed = JSON.stringify(books);
     localStorage.setItem(STORAGE_KEY, parsed);
   
     document.dispatchEvent(new Event(SAVED_EVENT));
@@ -59,31 +59,31 @@ function saveData() {
 
 function loadDataFromStorage() {
   if (serializedData !== null) {
-    for (const todo of serializedData) {
-      todos.push(todo);
+    for (const book of serializedData) {
+      books.push(book);
     }
   }
 
   document.dispatchEvent(new Event(RENDER_EVENT));
 }
 
-function addTodo() {
+function addBook() {
   const judulBuku = document.getElementById('title').value;
   const penulis = document.getElementById('author').value;
   const tahun = document.getElementById('year').value;
   const timestamp = document.getElementById('sRead').value;
 
   const generatedID = data.id;
-  const todoObject = generateTodoObject(generatedID, judulBuku, penulis, tahun, timestamp, data.isCompleted);
+  const bookObject = generateBookObject(generatedID, judulBuku, penulis, tahun, timestamp, data.isCompleted);
 
-  if (todoTarget === -1) return;
-  todos.splice(todoTarget, 1, todoObject);
+  if (bookTarget === -1) return;
+  books.splice(bookTarget, 1, bookObject);
   
   saveData();
 }
 
-function updateTask(todoIndex) {
-  if (todoIndex == null) return;
+function updateTask(bookIndex) {
+  if (bookIndex == null) return;
 
   const titleValue = data.judulBuku;
   const penulisValue = data.penulis;
@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', function () {
   updateForm.addEventListener('submit', function (event) {
     event.preventDefault();
     console.log("Update Button Click");  
-    addTodo();
+    addBook();
     updateForm.reset();
     window.location.replace("index.html");
   });
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (isStorageExist()) {
     loadDataFromStorage();
-    updateTask(todoTarget);
+    updateTask(bookTarget);
   }
 });
 

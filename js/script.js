@@ -1,6 +1,6 @@
-let todos = [];
-const RENDER_EVENT = 'render-todo';
-const SAVED_EVENT = 'saved-todo';
+let books = [];
+const RENDER_EVENT = 'render-book';
+const SAVED_EVENT = 'saved-book';
 const STORAGE_KEY = 'BOOK_APPS';
 const UPDATE_KEY = 'Update_index';
 
@@ -8,7 +8,7 @@ function generateId() {
   return +new Date();
 }
 
-function generateTodoObject(id, judulBuku, penulis, tahun, timestamp, isCompleted) {
+function generateBookObject(id, judulBuku, penulis, tahun, timestamp, isCompleted) {
   return {
     id,
     judulBuku,
@@ -19,18 +19,18 @@ function generateTodoObject(id, judulBuku, penulis, tahun, timestamp, isComplete
   };
 }
 
-function findTodo(todoId) {
-  for (const todoItem of todos) {
-    if (todoItem.id === todoId) {
-      return todoItem;
+function findBook(bookId) {
+  for (const bookItem of books) {
+    if (bookItem.id === bookId) {
+      return bookItem;
     }
   }
   return null;
 }
 
-function findTodoIndex(todoId) {
-  for (const index in todos) {
-    if (todos[index].id === todoId) {
+function findBookIndex(bookId) {
+  for (const index in books) {
+    if (books[index].id === bookId) {
       return index;
     }
   }
@@ -47,7 +47,7 @@ function isStorageExist() {
 
 function saveData() {
   if (isStorageExist()) {
-    const parsed = JSON.stringify(todos);
+    const parsed = JSON.stringify(books);
     localStorage.setItem(STORAGE_KEY, parsed);
     document.dispatchEvent(new Event(SAVED_EVENT));
   }
@@ -59,16 +59,16 @@ function loadDataFromStorage() {
   let data = JSON.parse(serializedData);
 
   if (data !== null) {
-    for (const todo of data) {
-      todos.push(todo);
+    for (const book of data) {
+      books.push(book);
     }
   }
   document.dispatchEvent(new Event(RENDER_EVENT));
 }
 
-function makeTodo(todoObject) {
+function makeBook(bookObject) {
 
-  const {id, judulBuku, penulis, tahun, timestamp, isCompleted} = todoObject;
+  const {id, judulBuku, penulis, tahun, timestamp, isCompleted} = bookObject;
 
   const textjudulBuku = document.createElement('h3');
   textjudulBuku.innerText = judulBuku;
@@ -94,7 +94,7 @@ function makeTodo(todoObject) {
   const container = document.createElement('div');
   container.classList.add('item', 'shadow');
   container.append(textContainer);
-  container.setAttribute('id', `todo-${id}`);
+  container.setAttribute('id', `book-${id}`);
   
   if (isCompleted) {
     
@@ -172,7 +172,7 @@ function makeTodo(todoObject) {
   return container;
 }
 
-function addTodo() {
+function addBook() {
   const judulBuku = document.getElementById('title').value;
   const penulis = document.getElementById('author').value;
   const tahun = document.getElementById('year').value;
@@ -187,49 +187,49 @@ function addTodo() {
     console.log('UNCEK');
   }
   const generatedID = generateId();
-  const todoObject = generateTodoObject(generatedID, judulBuku, penulis, tahun, timestamp, isRead);
-  todos.push(todoObject);
+  const bookObject = generateBookObject(generatedID, judulBuku, penulis, tahun, timestamp, isRead);
+  books.push(bookObject);
 
   document.dispatchEvent(new Event(RENDER_EVENT));
   saveData();
 }
 
 
-function addTaskToCompleted(todoId) {
-  const todoTarget = findTodo(todoId);
+function addTaskToCompleted(bookId) {
+  const bookTarget = findBook(bookId);
 
-  if (todoTarget == null) return;
+  if (bookTarget == null) return;
 
-  todoTarget.isCompleted = true;
+  bookTarget.isCompleted = true;
   document.dispatchEvent(new Event(RENDER_EVENT));
   saveData();
 }
 
-function removeTaskFromCompleted(todoId) {
-  const todoTarget = findTodoIndex(todoId);
+function removeTaskFromCompleted(bookId) {
+  const bookTarget = findBookIndex(bookId);
 
-  if (todoTarget === -1) return;
+  if (bookTarget === -1) return;
 
-  todos.splice(todoTarget, 1);
+  books.splice(bookTarget, 1);
   document.dispatchEvent(new Event(RENDER_EVENT));
   saveData();
 }
 
-function undoTaskFromCompleted(todoId) {
+function undoTaskFromCompleted(bookId) {
 
-  const todoTarget = findTodo(todoId);
-  if (todoTarget == null) return;
+  const bookTarget = findBook(bookId);
+  if (bookTarget == null) return;
 
-  todoTarget.isCompleted = false;
+  bookTarget.isCompleted = false;
   document.dispatchEvent(new Event(RENDER_EVENT));
   saveData();
 }
 
-function updateTask(todoId) {
-  const todoTarget = findTodoIndex(todoId);
-  if (todoTarget == null) return;
+function updateTask(bookId) {
+  const bookTarget = findBookIndex(bookId);
+  if (bookTarget == null) return;
 
-  const parsed = JSON.stringify(todoTarget);
+  const parsed = JSON.stringify(bookTarget);
   localStorage.setItem(UPDATE_KEY, parsed);
 
   window.location.replace("update.html");
@@ -237,11 +237,11 @@ function updateTask(todoId) {
 
 function findItem() {
   const LocalData = JSON.parse(localStorage.getItem(STORAGE_KEY));
-  const textTodo = document.getElementById('title').value;
+  const textBook = document.getElementById('title').value;
 
   for (const element of LocalData){
     let Etask = element.task;
-    if (Etask == textTodo) {
+    if (Etask == textBook) {
       console.log(Etask);
     }
   }
@@ -255,7 +255,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   submitForm.addEventListener('submit', function (event) {
     event.preventDefault();
-    addTodo();
+    addBook();
     form.reset();
   });
 
@@ -287,18 +287,18 @@ document.addEventListener(SAVED_EVENT, () => {
 });
 
 document.addEventListener(RENDER_EVENT, function () {
-  const uncompletedTODOList = document.getElementById('books');
+  const uncompletedBOOKList = document.getElementById('books');
   const listCompleted = document.getElementById('completed-books');
 
-  uncompletedTODOList.innerHTML = '';
+  uncompletedBOOKList.innerHTML = '';
   listCompleted.innerHTML = '';
 
-  for (const todoItem of todos) {
-    const todoElement = makeTodo(todoItem);
-    if (todoItem.isCompleted) {
-      listCompleted.append(todoElement);
+  for (const bookItem of books) {
+    const bookElement = makeBook(bookItem);
+    if (bookItem.isCompleted) {
+      listCompleted.append(bookElement);
     } else {
-      uncompletedTODOList.append(todoElement);
+      uncompletedBOOKList.append(bookElement);
     }
   }
 });
