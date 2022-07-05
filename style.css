@@ -1,0 +1,331 @@
+body {
+    margin: 0;
+    font-family: "Lucida Grande";
+}
+a {
+    text-decoration: none;
+    color: white;
+}
+
+.container {
+    width: 1170px;
+    padding: 0 15px;
+    margin: 0 auto;
+}
+
+header {
+    height: 65px;
+    width: 100%;
+    background-color: rgba(34, 49, 52, 0.9); 
+    position: fixed;
+    top: 0;
+    z-index: 10;
+}
+
+.logo {
+    width: 64px;
+    margin-top: 5px;
+}
+
+.header-logo {
+    float: left;
+}
+.header-title {
+    float: left;
+    margin-left: 10px;
+    color: white;
+}
+
+.header-right {
+    float: right;
+    margin-right: -25px;
+}
+
+.header-right a {
+    line-height: 65px;
+    padding: 0 25px;
+    color: white;
+    display: block;
+    float: left;
+    transition: all 0.5s;
+}
+
+.header-right a:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.top-wrapper {
+    padding: 180px 0 100px 0;
+    background-image: url(assets/icon/bookShelf_pict.jpg);
+    background-size: cover;
+    color: black;
+    text-align: center;
+}
+.top {
+    background: rgb(255, 255, 255, 0.4);
+    padding: 20px 0;
+    border-radius: 6px;
+}
+
+.top-wrapper h1 {
+    font-size: 45px;
+    font-weight: bold;
+    letter-spacing: 5px;
+    margin-bottom: 10px;
+}
+
+.top-wrapper p {
+    margin-bottom: 3px;
+    font-size: 16px;
+    font-weight: 700;
+}
+.search-wrapper {
+    padding: 20px 0 5px 0;
+    width: 80%;
+    margin: auto;
+}
+
+.form-search {
+    width: 80%;
+    margin: auto auto;
+}
+
+#Ftitle {
+    width: 100%;
+    font-size: 16px;
+    padding: 12px;
+    border-radius: 6px;
+    border: none;
+}
+
+.btn {
+    padding: 12px 24px;
+    color: black;
+    display: inline-block;
+    opacity: 0.8;
+    border-radius: 30px;
+}
+
+.btn:hover {
+    opacity: 1;
+}
+
+.submit-btn {
+    margin-top: 10px;
+}
+
+.add-wrapper {
+    margin-left: 115px;
+    text-align: left;
+}
+.add-book {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    text-align: left;
+}
+.add-wrapper input[type=text],[type=date],[type=number],
+select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.add-btn {
+    /* width: 100%; */
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: rgba(34, 49, 52, 0.9);
+    border: none;
+    border-radius: 6px;
+    box-shadow: 0 4px rgb(201, 201, 201);
+}
+.add-btn:hover {
+background-color: rgba(34, 49, 52);
+}
+
+.add-btn:active {
+    background-color: rgba(34, 49, 52);
+    box-shadow: 0 2px #666;
+    transform: translateY(2px);
+}
+
+.check-button {
+    background: url('assets/icon/check.png');
+    background-size: contain;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    border: none;
+    float: right;
+}
+
+.check-button:hover {
+    background: url('assets/icon/checked.png');
+    background-size: contain;
+}
+
+.check-button:focus,
+.trash-button {
+    outline: none;
+}
+
+.collapsible {
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+}
+
+.active,
+.collapsible:hover {
+    background-color: rgba(34, 49, 52);
+}
+
+.collapsible:after {
+    content: '\002B';
+    color: white;
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+}
+
+.active:after {
+    content: "\2212";
+}
+
+.content {
+    margin-top: 5px;
+    padding: 0 18px;
+    max-height: 0;
+    max-width: 930px;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    background-color: #f1f1f1;
+    border-radius: 6px;
+}
+
+.book-list-wrapper {
+    background-color: #f8f8f8;
+}
+.book-list {
+    display: flex;
+    flex-direction: row;
+    min-height: 400px;
+    /* margin-bottom: 100px; */
+    padding-bottom: 50px;
+}
+
+.list, .updates {
+    flex: 1;
+    box-shadow: 0 0 0 1px rgba(53, 72, 91, .07), 0 2px 2px rgba(0, 0, 0, .01), 0 4px 4px rgba(0, 0, 0, .02), 0 10px 8px rgba(0, 0, 0, .03), 0 15px 15px rgba(0, 0, 0, .03), 0 30px 30px rgba(0, 0, 0, .04), 0 70px 65px rgba(0, 0, 0, .05);
+    margin: 10px 10px 0 0;
+    padding: 20px;
+    padding-bottom: 50px;
+    border-radius: 6px;
+}
+
+.inner {
+    padding: 20px;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    background-color: rgba(34, 49, 52, 0.9);
+    border-radius: 30px;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    margin-bottom: 20px;
+}
+
+.inner p {
+    line-height: 0.5;
+}
+
+.inner-book {
+    flex: 80%;
+}
+.action {
+    flex: 20%;
+    margin: auto;
+}
+
+.container-book h2 {
+    text-align: center;
+}
+
+.dropbtn {
+        background: url(/assets/icon/more.png);
+        background-size: contain;
+        width: 40px;
+        height: 40px;
+        color: white;
+        padding: 16px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+}
+
+.dropDown {
+    position: relative;
+    display: inline-block;
+    position: relative;
+    left: 60px;
+}
+
+.dropDownContent {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropDownContent a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropDownContent a:hover {
+    background-color: #f1f1f1
+}
+
+.dropDown:hover .dropDownContent {
+    display: block;
+    cursor: pointer;
+}
+
+.dropDown:hover .dropbtn {
+    background: url(/assets/icon/more-hov.png);
+    background-size: contain;
+    width: 40px;
+    height: 40px;
+}
+
+footer img {
+    width: 64px;
+}
+
+footer p {
+    color: #b3aeb5;
+    font-size: 12px;
+}
+
+footer {
+    padding-top: 30px;
+    padding-bottom: 20px;
+    line-height: 0.5;
+}
+footer a {
+    color: black;
+}
