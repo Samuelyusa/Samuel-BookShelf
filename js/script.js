@@ -115,7 +115,6 @@ function makeTodo(todoObject) {
       if (confirm("Apakah Anda yakin akan menghapus item ini ?")) {
         removeTaskFromCompleted(id);
       }
-      // removeTaskFromCompleted(id);
     });
 
     const dropContent3 = document.createElement('a');
@@ -135,15 +134,39 @@ function makeTodo(todoObject) {
 
     actionContainer.append(dropDown);
   } else {
+    const Dbutton = document.createElement('button');
+    Dbutton.classList.add('dropbtn');
 
-    const checkButton = document.createElement('button');
-    checkButton.classList.add('check-button');
-    checkButton.setAttribute('Title', 'Tandai sudah dibaca');
-    checkButton.addEventListener('click', function () {
+    const dropContent2 = document.createElement('a');
+    dropContent2.classList.add('delete');
+    dropContent2.innerText = "Hapus";
+    dropContent2.addEventListener('click', function () {
+      if (confirm("Apakah Anda yakin akan menghapus item ini ?")) {
+        removeTaskFromCompleted(id);
+      }
+    });
+    const dropContent3 = document.createElement('a');
+    dropContent3.classList.add('update');
+    dropContent3.innerText = "Perbarui";
+    dropContent3.addEventListener('click', function () {
+      updateTask(id);
+    });
+
+    const dropContent4 = document.createElement('a');
+    dropContent4.classList.add('check');
+    dropContent4.innerText = "Tandai sudah dibaca";
+    dropContent4.addEventListener('click', function () {
       addTaskToCompleted(id);
     });
-    actionContainer.append(checkButton);
+    
+    const dropDownContent = document.createElement('div');
+    dropDownContent.classList.add('dropDownContent');
+    dropDownContent.append(dropContent4, dropContent2, dropContent3);
 
+    const dropDown = document.createElement('div');
+    dropDown.classList.add('dropDown');
+    dropDown.append(Dbutton, dropDownContent);
+    actionContainer.append(dropDown);
   }
 
   return container;
